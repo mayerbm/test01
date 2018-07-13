@@ -58,7 +58,8 @@ ROOT_URLCONF = 'test01.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # 设置project中存放模板的路径
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -98,7 +99,6 @@ USE_I18N = True
 
 USE_L10N = True
 
-# 禁用TIME_ZONE,不然报错：RuntimeWarning: DateTimeField BookInfo.pub_time received a naive datetime (2010-01-01 00:00:00) while time zone support is active.
 USE_TZ = True
 
 

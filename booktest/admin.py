@@ -22,7 +22,7 @@ class HeroInline(admin.TabularInline):
 class BookAdmin(admin.ModelAdmin):
 
     # list_display：显示字段(可调整字段顺序且字段可排序)
-    list_display = ['id', 'title', 'pub_time',]
+    list_display = ['id', 'title', 'pub_time']
 
     # list_filter：过滤字段(右侧会出现过滤框)
     list_filter = ['title']
@@ -43,6 +43,25 @@ class BookAdmin(admin.ModelAdmin):
     inlines = [HeroInline]
 
 
+# 自定义管理页面：定义模型在admin界面的展示方式
+class HeroAdmin(admin.ModelAdmin):
+
+    # list_display：显示字段(可调整字段顺序且字段可排序)
+    list_display = ['id', 'name', 'sex', 'introduce']
+
+    # list_filter：过滤字段(右侧会出现过滤框)
+    list_filter = ['name']
+
+    # search_fields：搜索字段(上方会出现搜索框)
+    search_fields = ['name']
+
+    # fieldsets：字段分组
+    fieldsets = [
+        ('基础信息', {'fields': ['name']}),
+        ('其它信息', {'fields': ['gender', 'introduce']}),
+    ]
+
+
 # 注册模型到admin
 admin.site.register(Book, BookAdmin)
-admin.site.register(Hero)
+admin.site.register(Hero, HeroAdmin)

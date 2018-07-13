@@ -17,5 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+
+    # project的初始化页面 http://ip:port/admin
     url(r'^admin/', include(admin.site.urls)),
+
+    # 将app的urls添加到project的主urls
+    url(r'', include('booktest.urls'))
 ]
