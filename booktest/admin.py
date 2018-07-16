@@ -1,3 +1,7 @@
+"""
+Django提供了admin.ModelAdmin类,通过定义其子类来自定义模型在admin界面的显示方式
+"""
+
 from django.contrib import admin
 from .models import Book, Hero
 
@@ -14,11 +18,10 @@ class HeroInline(admin.TabularInline):
     # 指定模型
     model = Hero
 
-    # 设定可额外添加的数量
+    # 设定可额外添加的模型数量
     extra = 3
 
 
-# 自定义管理页面：定义模型在admin界面的展示方式
 class BookAdmin(admin.ModelAdmin):
 
     # list_display：显示字段(可调整字段顺序且字段可排序)
@@ -33,17 +36,16 @@ class BookAdmin(admin.ModelAdmin):
     # list_per_page：设置分页
     list_per_page = 3
 
-    # fieldsets：字段分组
+    # fieldsets：给字段分组
     fieldsets = [
         ('基础信息', {'fields': ['title']}),
         ('其它信息', {'fields': ['pub_time']}),
     ]
 
-    # 添加关联对象
+    # 在一对多模型的一方添加关联对象
     inlines = [HeroInline]
 
 
-# 自定义管理页面：定义模型在admin界面的展示方式
 class HeroAdmin(admin.ModelAdmin):
 
     # list_display：显示字段(可调整字段顺序且字段可排序)

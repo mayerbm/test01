@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 将新建的app添加到这里
+    # 添加新建的app激活模型
     'booktest',
 )
 
@@ -80,8 +80,14 @@ WSGI_APPLICATION = 'test01.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test01',
+        'USER': 'root',
+        'PASSWORD': 'rootcc',
+        'HOST': '192.168.137.11',
+        'PORT': '3306',
     }
 }
 

@@ -1,3 +1,7 @@
+"""
+有一个数据表就有一个模型类与之对应,模型类继承自models.Model类,当输出对象时会调用对象的str方法
+"""
+
 from django.db import models
 
 
@@ -5,7 +9,7 @@ from django.db import models
 
 # 图书模型
 class Book(models.Model):
-    # 主键id是个自增列会自动生成不用设置
+    # 主键id是个自增列会自动生成不用添加
 
     # 书名：varchar类型
     title = models.CharField(max_length=20)
