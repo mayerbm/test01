@@ -5,7 +5,7 @@
       <paths name="django">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/.virtualenvs/django/web-project/test01" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/.virtualenvs/django/workspace/test01" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

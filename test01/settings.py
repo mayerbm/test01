@@ -24,6 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'b+i62$&b=fdix@l3oo%t+6o(#%@y*u#7l+iu#!p16j!v2cdh^#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# debug模式下,浏览器界面会直接显示代码里的错误而不是404、500等页面
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -86,7 +87,7 @@ DATABASES = {
         'NAME': 'test01',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '192.168.137.11',
+        'HOST': '192.168.19.11',
         'PORT': '3306',
     }
 }

@@ -1,6 +1,6 @@
 """
 model
-有一个数据表就有一个模型类与之对应,模型类继承自models.Model类,当输出对象时会调用对象的str方法
+有一个数据表就有一个模型类与之对应,模型类继承自models.Model类,输出对象时会调用对象的str方法
 
 databases
 错误：将数据库从sqlite3切换到mysql时：django.core.exceptions.ImproperlyConfigured: Error loading MySQLdb module: No module named 'MySQLdb'
@@ -20,7 +20,7 @@ from django.db import models
 
 # 图书模型
 class Book(models.Model):
-    # 主键id是个自增列会自动生成不用添加
+    # 主键id是自增列会自动生成不用添加
 
     # 书名：varchar类型
     title = models.CharField(max_length=20)
