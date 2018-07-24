@@ -27,7 +27,8 @@ SECRET_KEY = 'b+i62$&b=fdix@l3oo%t+6o(#%@y*u#7l+iu#!p16j!v2cdh^#'
 # debug模式下,浏览器界面会直接显示代码里的错误而不是404、500等页面
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# 设置允许访问的主机
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -97,7 +98,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 # LANGUAGE_CODE = 'en-us'
-LANGUAGE_CODE = 'zh-CN'  # 修改语言
+LANGUAGE_CODE = 'zh-Hans'  # 修改语言
 
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Shanghai'  # 修改时区

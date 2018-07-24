@@ -18,14 +18,14 @@ class HeroInline(admin.TabularInline):
     # 指定模型
     model = Hero
 
-    # 设定可额外添加的模型数量
+    # 设定可额外添加的对象数量
     extra = 3
 
 
 class BookAdmin(admin.ModelAdmin):
 
     # list_display：显示字段(可调整字段顺序且字段可排序)
-    list_display = ['id', 'title', 'pub_time']
+    list_display = ['id', 'title', 'pub_time', 'reading', 'comments', 'isDelete']
 
     # list_filter：过滤字段(右侧会出现过滤框)
     list_filter = ['title']
@@ -34,7 +34,7 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ['title']
 
     # list_per_page：设置分页
-    list_per_page = 3
+    list_per_page = 10
 
     # fieldsets：给字段分组
     fieldsets = [
@@ -49,7 +49,7 @@ class BookAdmin(admin.ModelAdmin):
 class HeroAdmin(admin.ModelAdmin):
 
     # list_display：显示字段(可调整字段顺序且字段可排序)
-    list_display = ['id', 'name', 'sex', 'introduce']
+    list_display = ['id', 'name', 'gender', 'introduce', 'book', 'isDelete']
 
     # list_filter：过滤字段(右侧会出现过滤框)
     list_filter = ['name']
