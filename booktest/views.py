@@ -28,7 +28,7 @@ from .models import Book
 def index(request):
 
     # 该视图使用的模板名称
-    template_name = 'booktest/index.html'
+    template_name = 'booktest1/index.html'
 
     # contet(字典类型): 该视图展示的上下文
     context = {"booklist": Book.objects.all()}
@@ -41,7 +41,7 @@ def index(request):
 def detail(request):
 
     # 该视图使用的模板名称
-    template_name = 'booktest/detail.html'
+    template_name = 'booktest1/detail.html'
 
     # 该视图展示的上下文
     context = {"herolist": Book.objects.get(pk=1).hero_set.all()}

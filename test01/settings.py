@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 添加新建的app激活模型
-    'booktest',
+    'booktest1',
 )
 
 MIDDLEWARE_CLASSES = (
