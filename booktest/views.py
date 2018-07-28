@@ -20,6 +20,8 @@ templates
 
 from django.shortcuts import render
 from .models import Book
+from django.db.models.aggregates import *
+from django.db.models import F, Q
 
 # Create your views here.
 
@@ -28,10 +30,15 @@ from .models import Book
 def index(request):
 
     # 该视图使用的模板名称
-    template_name = 'booktest1/index.html'
+    template_name = 'booktest/index.html'
+
+    # books = Book.manager1.all()
+    # books = Book.manager1.filter(title__startswith="天")
+    # books = Book.manager1.filter(reading__lt=F('comments'))
+    books = Book.manager1.filter(Q(title__contains="龙") | Q(pub_time__year=1980))
 
     # contet(字典类型): 该视图展示的上下文
-    context = {"booklist": Book.objects.all()}
+    context = {"books": books}
 
     # 渲染结果
     return render(request, template_name=template_name, context=context)
@@ -41,10 +48,10 @@ def index(request):
 def detail(request):
 
     # 该视图使用的模板名称
-    template_name = 'booktest1/detail.html'
+    template_name = 'booktest/detail.html'
 
     # 该视图展示的上下文
-    context = {"herolist": Book.objects.get(pk=1).hero_set.all()}
+    context = {"heros": Book.manager1.get(pk=1).hero_set.all()}
 
     # 渲染结果
     return render(request, template_name=template_name, context=context)

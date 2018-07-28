@@ -7,11 +7,11 @@
 <body>
     <h1>图书列表</h1>
     <ul>
-    {%for book in booklist%}
+    {% for book in books %}
         <li>
-            <a href="{{book.id}}">{{book.title}}</a>
+            <a href="{{ book.id }}">{{ book.title }} - {{ book.reading }} - {{ book.comments }}</a>
         </li>
-    {%endfor%}
+    {% endfor %}
     </ul>
 </body>
 </html>

@@ -7,11 +7,11 @@
 <body>
     <h1>人物列表</h1>
     <ul>
-        {%for hero in herolist%}
+        {% for hero in heros %}
         <li>
             <a href="{{hero.id}}">{{hero.name}}---{{hero.introduce}}</a>
         </li>
-        {%endfor%}
+        {% endfor %}
     </ul>
 </body>
 </html>

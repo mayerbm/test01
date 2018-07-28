@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # 将app的urls添加到project的主urls
-    url(r'', include('booktest1.urls'))
+    url(r'', include('booktest.urls'))
 ]
