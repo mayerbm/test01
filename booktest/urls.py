@@ -7,7 +7,7 @@ urlpatterns = [
     # 正则表达式命名组：通过位置参数传递给视图
     url('^$', views.index, name='index'),
     # 正则表达式命名组：通过关键字参数 ?P<关键字> 传递给视图
-    url('^(?P<id>\d+)/$', views.detail, name='detail'),
+    url('^(?P<num>\d+)/$', views.detail, name='detail'),
 
     # get请求
     url('^get01/$', views.get01, name='get01'),
@@ -16,5 +16,11 @@ urlpatterns = [
 
     # post请求
     url('^post01/$', views.post01, name='post01'),
-    url('^post02/$', views.post02, name='post02')
+    url('^post02/$', views.post02, name='post02'),
+
+    # cookie测试
+    url('^cookie01/$', views.cookie01, name='cookie'),
+
+    # 重定向
+    url('^redirect01/$', views.redirect01, name='redirect01')
 ]
