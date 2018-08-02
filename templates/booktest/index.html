@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>Title</title>
 </head>
 <body>
     <h1>图书列表</h1>
     <ul>
-    {% for book in books %}
+        {% for book in books %}
         <li>
-            <a href="{{ book.id }}">{{ book.title }} - {{ book.reading }} - {{ book.comments }}</a>
+            <a href="{{ book.id }}">{{ book.title }} - {{ book.pub_time }} - {{ book.reading }} - {{ book.comments }}</a>
         </li>
-    {% endfor %}
+        {% endfor %}
     </ul>
 </body>
 </html>

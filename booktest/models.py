@@ -1,6 +1,8 @@
 """
 model
 有一个数据表就有一个模型类与之对应,模型类继承自models.Model类,输出对象时会调用对象的str方法
+一访问多 --> book.hero_set
+一访问一 --> hero.book、hero.book_id
 
 databases
 错误：将数据库从sqlite3切换到mysql时：django.core.exceptions.ImproperlyConfigured: Error loading MySQLdb module: No module named 'MySQLdb'
@@ -81,6 +83,7 @@ class Hero(models.Model):
     name = models.CharField(max_length=20)
     # 性别：boolean类型
     gender = models.BooleanField()
+
     # boolean值得显示结果是 '√' '×' ,可将其替换为中文或英文
     def sex(self):
         if self.gender:
@@ -88,6 +91,7 @@ class Hero(models.Model):
         else:
             return '女'
     # sex.short_description = '性别'
+
     # 介绍：varchar类型
     introduce = models.CharField(max_length=50)
     # 逻辑删除：Boolean类型

@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>详细页</title>
+    <title>Title</title>
 </head>
 <body>
     <h1>人物列表</h1>
     <ul>
         {% for hero in heros %}
         <li>
-            <a href="{{hero.id}}">{{hero.name}}---{{hero.introduce}}</a>
+            <a href="{{hero.id}}">{{hero.name}}</a>
         </li>
         {% endfor %}
     </ul>
