@@ -17,6 +17,8 @@ manage.py是一个命令行工具,可以使用多种方式和Django项目做交�
 解决：修改settings.py --> LANGUAGE_CODE = 'zh-Hans'
 3、DisallowedHost: Invalid HTTP_HOST header: '192.168.19.11:7777'. You may need to add '192.168.19.11' to ALLOWED_HOSTS.
 解决：修改settings.py --> ALLOWED_HOSTS = ['*']
+4、redis.exceptions.ConnectionError: Error -2 connecting to localhost:6379. Name or service not known.
+解决：修改/etc/hosts --> 添加一行 127.0.0.1  localhost
 """
 
 import os

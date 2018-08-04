@@ -77,6 +77,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'test01.wsgi.application'
 
+# 存储session
+# SESSION_ENGINE='django.contrib.sessions.backends.db'  # 默认存db,是经过base64加密的值
+# SESSION_ENGINE='django.contrib.sessions.backends.cache'
+# SESSION_ENGINE='django.contrib.sessions.backends.cached_db'
+
+# 将session存入redis
+# pip install django-redis-sessions
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS_HOST = 'localhost'
+SESSION_REDIS_PORT = 6379
+SESSION_REDIS_DB = 0
+SESSION_REDIS_PASSWORD = ''
+SESSION_REDIS_PREFIX = 'session'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
