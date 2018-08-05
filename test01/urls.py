@@ -21,6 +21,8 @@ urlpatterns = [
     # project的初始化页面 http://ip:port/admin
     url(r'^admin/', include(admin.site.urls)),
 
-    # 将app的urls添加到project的主urls
+    # 将app的urls添加到project的主urls,此处的namespace和视图函数的name可用作反向解析
+    # 反向解析：链接由url的配置动态生成{% url 'namespace:name' p1 p2 %}
+    # 优点：当变更url的正则匹配规则时,不需要手动更改应用里的链接,因为namespace和name并没有变
     url(r'^booktest/', include('booktest.urls', namespace='booktest'))
 ]

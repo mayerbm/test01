@@ -47,14 +47,13 @@ HttpResponse对象
     request.session.set_expiry(value)：设置session过期时间(s)--> 默认两个星期,value=0会话在浏览器关闭时失效,value=None会话永不过期
     request.session.has_key(key)：判断键是否存在
     del request.session[key]：指定键删除会话
-    clear()：清除session_date的值
+    clear()：清除session_date的值(键保留值清空)
     flush()：删除当前的会话数据(连session_key一起删掉)并删除Cookie中的sessionid
 
 templates
 1、在project根目录下创建templates目录, 并在settings.py中设置TEMPLATES的DIRS值
 2、在templates目录下创建booktest目录存放booktest应用各个视图的html页面, 并根据视图中传递的数据填充值
-  {% 执行代码段 %}
-  {{ 输出值：可以是变量,也可以是对象.属性 }}
+模板语言包括：变量、标签、过滤器、注释
 
 步骤：定义视图函数-->配置urlconf-->设计html模板
 """
@@ -200,7 +199,7 @@ def logout(request):
     #     del request.session['myname']  # 等价于request.session.clear()
 
     # 删除当前会话数据
-    # request.session.flush()
+    request.session.flush()
 
     # 退出后转向初始页面
     return redirect("/booktest/homepage/")
