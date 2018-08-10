@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" action="/booktest/login/">
+<form method="post" action="{% url 'booktest:login' %}">
+    {% csrf_token %}
     <input type="text" name="uname"><hr>
     <input type="submit" value="login">
 </form>

@@ -29,6 +29,7 @@ DEBUG = True
 
 # 设置允许访问的主机
 ALLOWED_HOSTS = ["*"]
+# APPEND_SLASH = False
 
 
 # Application definition
@@ -37,18 +38,19 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    # 使用django-admin startproject创建的项目默认启用session
-    'django.contrib.sessions',
+    'django.contrib.sessions',  # 使用django-admin startproject创建的项目默认启用session
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 添加新建的app激活模型
     'booktest',
+    # 添加验证码
+    'captcha',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -84,12 +86,12 @@ WSGI_APPLICATION = 'test01.wsgi.application'
 
 # 将session存入redis
 # pip install django-redis-sessions
-SESSION_ENGINE = 'redis_sessions.session'
-SESSION_REDIS_HOST = 'localhost'
-SESSION_REDIS_PORT = 6379
-SESSION_REDIS_DB = 0
-SESSION_REDIS_PASSWORD = ''
-SESSION_REDIS_PREFIX = 'session'
+# SESSION_ENGINE = 'redis_sessions.session'
+# SESSION_REDIS_HOST = 'localhost'
+# SESSION_REDIS_PORT = 6379
+# SESSION_REDIS_DB = 0
+# SESSION_REDIS_PASSWORD = ''
+# SESSION_REDIS_PREFIX = 'session'
 
 
 # Database
@@ -103,7 +105,7 @@ DATABASES = {
         'NAME': 'test01',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '192.168.233.11',
+        'HOST': '192.168.19.11',
         'PORT': '3306',
     }
 }
@@ -128,4 +130,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/'  # 此处的static是逻辑路径,名字随便写可以隐藏真实路径
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # 这个才是真实路径

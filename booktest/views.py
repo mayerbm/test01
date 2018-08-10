@@ -40,39 +40,59 @@ HttpResponse对象
     实现状态保持的方式：在客户端(cookie)或服务器端(session)存储与会话有关的数据
     推荐使用session：所有数据存储在服务器端,并在客户端cookie中存储session_id,二者等值可以用来区分不同用户
     状态保持的目的是在一段时间内跟踪请求者的状态从而实现跨页面访问当前请求者的数据
-    启用会话后，每个HttpRequest对象将具有一个session属性，它是一个类字典对象
+    启用会话后,每个HttpRequest对象将具有一个session属性,它是一个类字典对象
 使用session
-    request.session.get(key, default=None)：根据指定键获取会话的值,若键不存在就给个默认值None
     request.session[key] = value：设置session值
     request.session.set_expiry(value)：设置session过期时间(s)--> 默认两个星期,value=0会话在浏览器关闭时失效,value=None会话永不过期
     request.session.has_key(key)：判断键是否存在
-    del request.session[key]：指定键删除会话
-    clear()：清除session_date的值(键保留值清空)
+    request.session.get(key, default=None)：根据指定键获取会话的值,若键不存在就给个默认值None
+    del request.session[key]：指定键删除会话 --> clear()：清除session_date的值(键保留值清空)
     flush()：删除当前的会话数据(连session_key一起删掉)并删除Cookie中的sessionid
 
 templates
-1、在project根目录下创建templates目录, 并在settings.py中设置TEMPLATES的DIRS值
-2、在templates目录下创建booktest目录存放booktest应用各个视图的html页面, 并根据视图中传递的数据填充值
-模板语言包括：变量、标签、过滤器、注释
+在project根目录下创建templates目录并在settings.py中设置TEMPLATES的DIRS值
+模板语言包括：变量{{ variable }}、标签{% tag %}、过滤器{{ variable|filter }}、注释{{ #...# }}
+    for标签：{% for ... in ... %}...{{ forloop.counter }}...{% empty %}...{% endfor %}
+    if标签：{% if ... %}...{% elif ... %}...{% else %}...{% endif %}
+    单行注释：{# 这是注释 #}
+    多行注释：{% comment %}...{% endcomment %}
+url反向解析：{% url 'namespace:name' p1 p2 .. %} --> 请求链接由url的配置(namespace:name)动态生成而不是手动拼接
+    好处：当修改url匹配规则时不需要额外维护模板里的请求链接,也可以避免链接后面漏掉'/'的问题
+模板继承
+    模板继承可以实现页面内容的重用 --> 比如同一个网站各个页面的头部/底部都是一样的,这些内容只需定义在父模板中即可
+    block标签：在父模板中预留区域由子模板填充; extends继承：写在模板文件的第一行,父模板已有的字模板不需要重写
+    定义父模板base.html: {% block block_name %}...{% endblock %}
+    定义子模板index.html: {% extends "base.html" %}...{% block block_name %}...{% endblock %}
+html转义
+    如果输出的字符串中包含html标签(比如<>),需要将包含的html标签转义成字符串输出而不被解释执行
+    < 会转换为&lt;
+    > 会转换为&gt;
+    ' (单引号) 会转换为&#39;
+    " (双引号)会转换为 &quot;
+    & 会转换为 &amp;
+csrf跨域攻击
+    Cross Site Request Forgery: 跨站请求伪造,只针对post请求
+    跨站攻击：某些恶意网站上包含链接、表单按钮或者JS,它们会利用登录过的用户在浏览器中的认证信息试图在你的网站上完成某些操作
+    django自带csrf中间件,只要在模板的form表单中添加{% csrf_token %}即可
 
-步骤：定义视图函数-->配置urlconf-->设计html模板
+步骤：定义视图函数 --> 配置urlconf --> 设计html模板
 """
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .models import Book
+from .models import Book, Hero
 from django.db.models import F, Q
 
 # Create your views here.
 
 
-def index(request):
+def index01(request):
     # 1、不调用模板直接返回
     # return HttpResponse("你好！")
 
     # 2、调用模板
-    template_name = 'booktest/index.html'  # 模板名称
+    template_name = 'booktest/index01.html'  # 模板名称
     books = Book.manager1.filter(Q(title__contains="龙") | Q(pub_time__year=1980) | Q(reading__gte=F("comments")))
     context = {"books": books}  # 构造字典类型的上下文(要往模板中传递的数据)
 
@@ -127,7 +147,7 @@ def post01(request):
     return render(request, "booktest/post01.html")
 
 def post02(request):
-    # 根据键接收值
+    # 接收post请求传入的参数值
     name = request.POST["name"]
     pwd = request.POST["pwd"]
     age = request.POST["age"]
@@ -144,7 +164,7 @@ def cookie01(request):
     # 创建HttpResponse对象
     response = HttpResponse()
 
-    # 在响应头中添加cookie值,下次客户端再发请求的时候请求头中的Cookie就会包含该cookie值
+    # 第一次请求服务器时在响应头中添加cookie值,下次客户端再发请求的时候请求头中的Cookie就会包含该cookie值
     response.set_cookie("k", value="aaa", max_age=60)
 
     # 判断cookie值是否存在
@@ -171,8 +191,8 @@ def redirect01(request):
 # session测试
 # 显示首页
 def homepage(request):
-    # uname = None  # 第一次访问时用户名为空
-    uname = request.session.get('myname', default=None)  # 登录过后就应该有该用户的session信息了
+    # 第一次请求时session为空给个默认值None,后续请求就有该用户的session信息了
+    uname = request.session.get('myname', default=None)
     context = {"uname": uname}
     return render(request, "booktest/session01.html", context)
 
@@ -181,7 +201,7 @@ def loginpage(request):
     # 展示form表单
     return render(request, "booktest/session02.html")
 
-# 登录
+# 执行登录
 def login(request):
     # 接收post请求传入的参数uname
     uname = request.POST['uname']
@@ -192,7 +212,7 @@ def login(request):
     # 登录后转向初始页面
     return redirect("/booktest/homepage/")
 
-# 退出
+# 执行退出
 def logout(request):
     # 清除session_data
     # if request.session.has_key('myname'):
@@ -203,3 +223,45 @@ def logout(request):
 
     # 退出后转向初始页面
     return redirect("/booktest/homepage/")
+
+
+# DTL测试
+def test01(request):
+    heros = Hero.objects.filter(isDelete=False)
+    context = {"heros": heros}
+    return render(request, "booktest/test01.html", context)
+
+
+# 模板继承
+def user01(request):
+    return render(request, "booktest/user01.html")
+
+def user02(request):
+    return render(request, "booktest/user02.html")
+
+
+# html转义
+def html01(request):
+    context = {"data1": "<h1>这是一个包含html标签的字符串</h1>"}
+    return render(request, "booktest/html01.html", context)
+
+
+# csrf跨域攻击
+def csrf01(request):
+    # 展示form表单
+    return render(request, "booktest/csrf01.html")
+
+def csrf02(request):
+    # 接收post请求传入的参数值
+    uname = request.POST['uname']
+    return HttpResponse(uname)
+
+
+# 验证码
+def captcha(request):
+    return render(request, "booktest/captcha.html")
+
+
+# 静态文件
+def static01(request):
+    return render(request, "booktest/static01.html")

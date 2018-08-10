@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% block head %}...{% endblock %}
+</head>
+
+<body>
+    <h1>这是头部</h1>
+    <hr>
+    {% block content %}
+        <h3>此区域功能由字模板实现</h3>
+    {% endblock %}
+    <hr>
+    <h1>这是底部</h1>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{# 手动拼接静态文件路径 #}
+<img src="/static/booktest/001.jpg" width="200" height="300">
+<hr>
+{# 动态配置静态文件路径 #}
+<img src="{% static 'booktest/001.jpg' %}" width="200" height="300">
+</body>
+</html>

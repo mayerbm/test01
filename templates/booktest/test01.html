@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{#url反向解析#}
+演示正向解析: <a href="/booktest/1/2">手动拼接url</a>
+<br>
+演示反向解析: <a href="{% url 'booktest:detail02' 1 2 %}">由url配置动态生成</a>
+
+<hr>
+需求：显示hero的编号且奇数为红色偶数为蓝色
+<hr>
+
+{% comment %}
+{#  http://blog.csdn.net/xyp84/article/details/7945094#}
+{% endcomment %}
+
+{#for循环#}
+{% for hero in heros %}
+
+    {#if判断#}
+    {% if forloop.counter|divisibleby:"2" %}
+        <li style="color: blue">{{ forloop.counter }}-{{ hero.name }}</li>
+    {% else %}
+        <li style="color: red">{{ forloop.counter }}-{{ hero.name }}</li>
+    {% endif %}
+
+{#为空时输出内容#}
+{% empty %}
+    <li>啥也没找到~</li>
+
+{% endfor %}
+
+</body>
+</html>

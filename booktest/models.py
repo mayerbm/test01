@@ -20,7 +20,7 @@ manager
 django默认管理器是objects,可以为模型类指定自定义管理器对象,此后objects将不存在
 管理器作用：a、更改默认查询结果; b、定义一个模型类创建方法
 
-步骤：定义模型类-->定义管理器-->将管理器作为模型类的属性
+步骤：定义模型类 --> 定义管理器 --> 将管理器作为模型类的属性
 """
 
 from django.db import models
@@ -107,3 +107,4 @@ class Hero(models.Model):
     # 自定义输出内容
     def __str__(self):
         return '%s' % self.name
+

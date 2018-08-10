@@ -7,8 +7,8 @@
 <body>
 欢迎 {{ uname }} 到此一游！
 <br>
-<a href="/booktest/loginpage/">登录</a>
+<a href="{% url 'booktest:loginpage' %}">登录</a>
 <br>
-<a href="/booktest/logout/">退出</a>
+<a href="{% url 'booktest:logout' %}">退出</a>
 </body>
 </html>

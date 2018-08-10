@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{# django默认是做html转义的(escape可省略) #}
+{{ data1|escape }}
+{# 给变量加上safe过滤器表示不转义 #}
+{{ data1|safe }}
+<hr>
+{# 代码块使用autoescape标签,on打开转义,off关闭转义 #}
+{% autoescape on %}
+    {{ data1 }}
+{% endautoescape %}
+
+{% autoescape off %}
+    {{ data1 }}
+{% endautoescape %}
+<hr>
+{# 注意：default后面不能跟空格 #}
+default过滤器默认不转义：{{ data2|default:'<h1>如果变量不存在就给默认值</h1>' }}
+手动转义：{{ data2|default:'&lt;h1&gt;如果变量不存在就给默认值&lt;/h1&gt;' }}
+</body>
+</html>
