@@ -45,9 +45,13 @@ urlpatterns = [
     url('^csrf01/$', views.csrf01, name='csrf01'),
     url('^csrf02$', views.csrf02, name='csrf02'),
 
-    # 验证码
-    url('^captcha/$', views.captcha, name='captcha'),
-
     # 静态文件
     url('^static01/$', views.static01, name='static01'),
+
+    # 中间件
+    url('^myexc/$', views.myexc, name='myexc'),
+
+    # 上传图片
+    url('^uploadpage/$', views.uploadpage, name='uploadpage'),
+    url('^upload/$', views.upload, name='upload'),
 ]

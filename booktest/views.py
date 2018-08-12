@@ -83,6 +83,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .models import Book, Hero
 from django.db.models import F, Q
+import os
+from django.conf import settings
 
 # Create your views here.
 
@@ -194,12 +196,12 @@ def homepage(request):
     # 第一次请求时session为空给个默认值None,后续请求就有该用户的session信息了
     uname = request.session.get('myname', default=None)
     context = {"uname": uname}
-    return render(request, "booktest/session01.html", context)
+    return render(request, "booktest/homepage.html", context)
 
 # 显示登录页
 def loginpage(request):
     # 展示form表单
-    return render(request, "booktest/session02.html")
+    return render(request, "booktest/loginpage.html")
 
 # 执行登录
 def login(request):
@@ -257,11 +259,37 @@ def csrf02(request):
     return HttpResponse(uname)
 
 
-# 验证码
-def captcha(request):
-    return render(request, "booktest/captcha.html")
-
-
 # 静态文件
 def static01(request):
     return render(request, "booktest/static01.html")
+
+
+# 中间件
+def myexc(request):
+    a = int("abc")
+    return HttpResponse("hello!")
+
+
+# 上传图片
+def uploadpage(request):
+    # 展示上传图片页面
+    return render(request, "booktest/uploadpage.html")
+
+# 执行上传
+def upload(request):
+    if request.method == "POST":
+        # 接收上传文件
+        file = request.FILES['pic01']
+        # 获取文件完整路径
+        filename = os.path.join(settings.MEDIA_ROOT, file.name)
+
+        # 先返回一下结果看路径对不对
+        # return HttpResponse(filename)
+
+        # 读写文件
+        with open(filename, 'wb') as f:
+            for c in file.chunks():
+                f.write(c)
+        return HttpResponse('<img src="/static/media/%s">' % file.name)
+    else:
+        return HttpResponse("error")

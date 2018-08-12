@@ -23,7 +23,4 @@ urlpatterns = [
 
     # 将app的urls添加到project的主urls,此处的namespace和视图函数的name可用作反向解析
     url(r'^booktest/', include('booktest.urls', namespace='booktest')),
-
-    # 添加验证码
-    # url('^captcha', include('captcha.urls')),
 ]
