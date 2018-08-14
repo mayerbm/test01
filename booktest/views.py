@@ -281,15 +281,23 @@ def upload(request):
         # 接收上传文件
         file = request.FILES['pic01']
         # 获取文件完整路径
-        filename = os.path.join(settings.MEDIA_ROOT, file.name)
+        filename = os.path.join(settings.UPLOAD_DIRS, file.name)
 
         # 先返回一下结果看路径对不对
         # return HttpResponse(filename)
 
         # 读写文件
         with open(filename, 'wb') as f:
-            for c in file.chunks():
+            for c in file.readlines():
                 f.write(c)
-        return HttpResponse('<img src="/static/media/%s">' % file.name)
+        return HttpResponse('<img src="/static/upload/%s" width="200" height="300">' % file.name)
+        # context = {"res": file.name}
+        # return render(request, "booktest/upload.html", context)
     else:
         return HttpResponse("error")
+
+
+# 分页
+def paging(request):
+    context = {}
+    return render(request, "booktest/paging.html", context)

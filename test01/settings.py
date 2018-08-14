@@ -55,8 +55,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    # 添加自定义中间件
-    # 'test01.myexc.MyException',
 )
 
 ROOT_URLCONF = 'test01.urls'
@@ -107,7 +105,7 @@ DATABASES = {
         'NAME': 'test01',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '192.168.233.11',
+        'HOST': '192.168.19.11',
         'PORT': '3306',
     }
 }
@@ -134,7 +132,9 @@ USE_TZ = True
 
 # 配置静态文件地址
 STATIC_URL = '/static/'  # 此处的static是逻辑路径,名字随便写可以隐藏真实路径
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')  # 这个才是真实路径
-# 配置上传图片地址
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media/')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # 这个才是真实路径
+]
+# 配置上传文件地址
+UPLOAD_DIRS = os.path.join(BASE_DIR, "static/upload")
 

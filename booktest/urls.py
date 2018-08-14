@@ -53,5 +53,8 @@ urlpatterns = [
 
     # 上传图片
     url('^uploadpage/$', views.uploadpage, name='uploadpage'),
-    url('^upload/$', views.upload, name='upload'),
+    url('^upload$', views.upload, name='upload'),
+
+    # 分页
+    url('^$', views.paging, name='paging')
 ]
