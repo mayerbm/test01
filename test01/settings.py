@@ -55,6 +55,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    # 自定义中间件
+    # 'test01.myexc.MyException',
 )
 
 ROOT_URLCONF = 'test01.urls'

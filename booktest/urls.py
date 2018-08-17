@@ -55,6 +55,6 @@ urlpatterns = [
     url('^uploadpage/$', views.uploadpage, name='uploadpage'),
     url('^upload$', views.upload, name='upload'),
 
-    # 分页
-    url('^$', views.paging, name='paging')
+    # 分页(此处匹配页码用的是\d*而不是\d+,一般不写页码的话默认是第一页)
+    url('^paging/(?P<num>\d*)$', views.paging, name='paging')
 ]

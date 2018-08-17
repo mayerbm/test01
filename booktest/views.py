@@ -74,6 +74,11 @@ csrf跨域攻击
     Cross Site Request Forgery: 跨站请求伪造,只针对post请求
     跨站攻击：某些恶意网站上包含链接、表单按钮或者JS,它们会利用登录过的用户在浏览器中的认证信息试图在你的网站上完成某些操作
     django自带csrf中间件,只要在模板的form表单中添加{% csrf_token %}即可
+验证码
+    csrf_token没啥用还是得用验证码
+分页
+
+
 
 步骤：定义视图函数 --> 配置urlconf --> 设计html模板
 """
@@ -85,6 +90,7 @@ from .models import Book, Hero
 from django.db.models import F, Q
 import os
 from django.conf import settings
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -277,6 +283,7 @@ def uploadpage(request):
 
 # 执行上传
 def upload(request):
+    # 上传文件必须是post请求
     if request.method == "POST":
         # 接收上传文件
         file = request.FILES['pic01']
@@ -290,14 +297,27 @@ def upload(request):
         with open(filename, 'wb') as f:
             for c in file.readlines():
                 f.write(c)
-        return HttpResponse('<img src="/static/upload/%s" width="200" height="300">' % file.name)
-        # context = {"res": file.name}
-        # return render(request, "booktest/upload.html", context)
+        # return HttpResponse('<img src="/static/upload/%s" width="200" height="300">' % file.name)
+        context = {"res": file.name}
+        return render(request, "booktest/upload.html", context)
     else:
         return HttpResponse("error")
 
-
 # 分页
-def paging(request):
-    context = {}
+def paging(request, num):
+    # 获取hero列表
+    hero_list = Hero.objects.all()
+
+    # Paginator(list, num): 将list数据分成num页
+    paginator = Paginator(hero_list, 5)
+    # paginator.page(num): 获取指定num的页面
+    if not num:
+        # num为空默认是第一页
+        page = paginator.page(1)
+    else:
+        page = paginator.page(num)
+
+    # 往模板传递的数据
+    context = {"page": page}
+    # 渲染模板
     return render(request, "booktest/paging.html", context)

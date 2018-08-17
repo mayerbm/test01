@@ -5,6 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-
+    {% for hero in page %}
+        {{ hero.name }}<br>
+    {% endfor %}
+    <hr>
+    {# 在页面下方显示页码 #}
+    {% for index in page.paginator.page_range %}
+        {# 判断是否是当前页码 #}
+        {% if index == page.number %}
+            {# 当前页码直接显示数字 #}
+            {{ index }}
+        {% else %}
+            {# 不是当前页码显示超链接 #}
+            <a href="{% url 'booktest:paging' index %}">{{ index }}</a>
+        {% endif %}
+    {% endfor %}
 </body>
 </html>
