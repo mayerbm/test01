@@ -78,6 +78,8 @@ csrf跨域攻击
     csrf_token没啥用还是得用验证码
 分页
 
+缓存
+    减少服务器运算,提升服务器性能
 
 
 步骤：定义视图函数 --> 配置urlconf --> 设计html模板
@@ -91,6 +93,8 @@ from django.db.models import F, Q
 import os
 from django.conf import settings
 from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 # Create your views here.
 
@@ -155,7 +159,7 @@ def post01(request):
     return render(request, "booktest/post01.html")
 
 def post02(request):
-    # 接收post请求传入的参数值
+    # 接收post请求传入的name参数值
     name = request.POST["name"]
     pwd = request.POST["pwd"]
     age = request.POST["age"]
@@ -291,15 +295,16 @@ def upload(request):
         filename = os.path.join(settings.UPLOAD_DIRS, file.name)
 
         # 先返回一下结果看路径对不对
-        # return HttpResponse(filename)
+        # print(filename)  # 打印在控制台
+        # return HttpResponse(filename)  # 页面响应
 
         # 读写文件
         with open(filename, 'wb') as f:
             for c in file.readlines():
                 f.write(c)
-        # return HttpResponse('<img src="/static/upload/%s" width="200" height="300">' % file.name)
-        context = {"res": file.name}
-        return render(request, "booktest/upload.html", context)
+        return HttpResponse('<img src="/static/upload/%s" width="200" height="300">' % file.name)
+        # context = {"res": file.name}
+        # return render(request, "booktest/upload.html", context)
     else:
         return HttpResponse("error")
 
@@ -321,3 +326,41 @@ def paging(request, num):
     context = {"page": page}
     # 渲染模板
     return render(request, "booktest/paging.html", context)
+
+
+# 富文本编辑器
+def editor01(request):
+    # 展示文本编辑器页面
+    return render(request, "booktest/editor01.html")
+
+def editor02(request):
+    # 接收post请求传入的name参数值
+    html_content = request.POST["content"]
+    # 构造上下文
+    context = {"content": html_content}
+    # 渲染模板
+    return render(request, "booktest/editor02.html", context)
+
+
+# 缓存视图(添加装饰器)
+@cache_page(60*10)
+def cache01(request):
+    # 第一次请求时响应数据
+    # return HttpResponse("hello1")
+    # 在设置的缓存时间范围内,后续请求的url调用该视图时返回的仍是"hello1"
+    return HttpResponse("hello2")
+
+# 缓存模板(片段)
+def cache02(request):
+    return render(request, "booktest/cache01.html")
+
+# 底层的缓存api
+def cache03(request):
+    # 通过cache设置缓存
+    cache.set("orc", "grubby", 60 * 10)
+    cache.set("ne", "moon", 60 * 10)
+    # 在控制台输出(也可以在redis中get key查看)
+    print(cache.get("orc") + "..." + cache.get("ne"))
+    # 清空缓存
+    # cache.clear()
+    return HttpResponse("ok")

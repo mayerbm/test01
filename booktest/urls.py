@@ -56,5 +56,14 @@ urlpatterns = [
     url('^upload$', views.upload, name='upload'),
 
     # 分页(此处匹配页码用的是\d*而不是\d+,一般不写页码的话默认是第一页)
-    url('^paging/(?P<num>\d*)$', views.paging, name='paging')
+    url('^paging/(?P<num>\d*)$', views.paging, name='paging'),
+
+    # 文本编辑器
+    url('^editor01$', views.editor01, name='editor01'),
+    url('^editor02$', views.editor02, name='editor02'),
+
+    # 缓存
+    url('^cache01$', views.cache01, name='cache01'),
+    url('^cache02$', views.cache02, name='cache02'),
+    url('^cache03$', views.cache03, name='cache03'),
 ]

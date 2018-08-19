@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {# 定义文本编辑器配置 #}
+    <script type="text/javascript" src='/static/tiny_mce/tiny_mce.js'></script>
+    <script type="text/javascript">
+        tinyMCE.init({
+            'mode': 'textareas',
+            'theme': 'advanced',
+            'width': 400,
+            'height': 100
+        });
+    </script>
+</head>
+<body>
+    {# 包含文本框的form表单 #}
+    <form method="post" action="{% url 'booktest:editor02' %}">
+        {% csrf_token %}
+        <textarea name="content">这是一个文本编辑器</textarea>
+        <br>
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>

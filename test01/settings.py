@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # 添加新建的app激活模型
     'booktest',
+    # 'tinymce',
+    'user',
 )
 
 # 配置django中间件
@@ -107,7 +109,7 @@ DATABASES = {
         'NAME': 'test01',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '192.168.19.11',
+        'HOST': '192.168.233.11',
         'PORT': '3306',
     }
 }
@@ -139,4 +141,41 @@ STATICFILES_DIRS = [
 ]
 # 配置上传文件地址
 UPLOAD_DIRS = os.path.join(BASE_DIR, "static/upload")
+
+
+# 文本编辑器默认配置
+# TINYMCE_DEFAULT_CONFIG = {
+#     'theme': 'advanced',
+#     'width': 600,
+#     'height': 400,
+# }
+
+# django默认缓存
+# CACHES={
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+#         'TIMEOUT': 60,
+#     }
+# }
+
+# 配置redis缓存
+# pip install django-redis-cache
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.cache.RedisCache",
+        "LOCATION": "localhost:6379",
+        'TIMEOUT': 60,
+    },
+}
+
+
+# 配置haystack连接
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
+}
+# 自动生成索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 

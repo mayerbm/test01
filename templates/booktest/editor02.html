@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{# django默认是html转义的 #}
+{{ content|escape }}
+{# 给变量加上safe过滤器表示不转义 #}
+{{ content|safe }}
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% load cache %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{# 使用cache标签做缓存 #}
+{% cache 600 mycache %}
+    {# 此处是需要缓存的代码块 #}
+    hello python
+{% endcache %}
+</body>
+</html>
+

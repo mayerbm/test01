@@ -23,4 +23,9 @@ urlpatterns = [
 
     # 将app的urls添加到project的主urls,此处的namespace和视图函数的name可用作反向解析
     url(r'^booktest/', include('booktest.urls', namespace='booktest')),
+
+    # url(r'^tinymce/', include('tinymce.urls')),
+    # url(r'^search/', include('haystack.urls')),
+
+    url(r'^user/', include('user.urls', namespace='user'))
 ]

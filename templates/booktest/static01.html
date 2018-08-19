@@ -6,12 +6,12 @@
 </head>
 <body>
     {# 手动拼接静态文件路径 #}
-    <img src="/static/booktest/001.jpg" width="200" height="300">
+    <img src="/static/booktest/001.jpg" width="300" height="300">
     <hr>
     {# 动态配置静态文件路径 #}
     {% load static from staticfiles %}
-    <img src="{% static 'booktest/001.jpg' %}" width="200" height="300">
+    <img src="{% static 'booktest/001.jpg' %}" width="300" height="300">
     <hr>
-    <img src="{% static 'upload/001.jpg' %}" width="200" height="300">
+    <img src="{% static 'upload/002.jpg' %}" width="300" height="300">
 </body>
 </html>
