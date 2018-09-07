@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="django" showNewOnSourceInSync="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@192.168.19.11:22" showNewOnSourceInSync="false">
     <serverData>
       <paths name="django">
         <serverdata>
           <mappings>
             <mapping deploy="/home/.virtualenvs/django/workspace/test01" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@192.168.19.11:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/.virtualenvs/scrapy/workspace/myspider" local="$PROJECT_DIR$/../myspider" />
           </mappings>
         </serverdata>
       </paths>
